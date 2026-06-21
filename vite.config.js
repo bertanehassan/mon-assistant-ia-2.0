@@ -32,10 +32,10 @@ export default defineConfig(({ mode }) => ({
         renameGlobals: false,
 
         // ── Auto-défense: le code se casse si on le reformatte ──
-        selfDefending: true,
+        selfDefending: false,
 
         // ── Empêche le débogueur de s'attacher ──
-        debugProtection: true,
+        debugProtection: false,
         debugProtectionInterval: 4000,
 
         // ── Désactive la console ──
