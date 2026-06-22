@@ -5,8 +5,12 @@
     <script>
     (function(){
       'use strict';
-      // 1. Désactiver le clic droit
-      document.addEventListener('contextmenu', function(e){ e.preventDefault(); }, true);
+      // 1. Désactiver le clic droit sauf dans les zones de saisie
+      document.addEventListener('contextmenu', function(e){
+        const tag = e.target.tagName ? e.target.tagName.toLowerCase() : '';
+        if (tag === 'input' || tag === 'textarea' || e.target.isContentEditable) return;
+        e.preventDefault(); 
+      }, true);
 
       // 2. Désactiver les raccourcis clavier d'inspection
       document.addEventListener('keydown', function(e){
