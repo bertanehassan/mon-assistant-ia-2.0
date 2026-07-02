@@ -58,7 +58,7 @@
     <!-- ════════ FIN PROTECTION ════════ -->
     <meta charset="UTF-8" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <!-- Updated CSP to allow tailwind CDN -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob: 'unsafe-inline' 'unsafe-eval' ws: wss: https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.googleapis.com https://fonts.gstatic.com https://api.mistral.ai https://cdn.tailwindcss.com;">
     <title>Mon Assistant IA</title>
@@ -73,6 +73,7 @@
     <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.21/mammoth.browser.min.js"></script>
     <!-- Tailwind CSS CDN and config -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script>
@@ -199,9 +200,34 @@
             display: inline !important;
         }
 
-        /* ── Zoom 90% par défaut ── */
-        html {
-            zoom: 0.9;
+        /* ── Zoom 90% uniquement sur desktop (≥ 1024px) ── */
+        @media (min-width: 1024px) {
+            html {
+                zoom: 0.9;
+            }
+        }
+
+        /* ── Safe area pour iPhone notch/home bar ── */
+        body {
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+        }
+
+        /* ── Cibles tactiles minimum 44px (recommandation Apple/Google) ── */
+        button, [role="button"], select, input[type="submit"] {
+            min-height: 44px;
+        }
+
+        /* ── Éviter le zoom automatique sur les inputs iOS (min font-size 16px) ── */
+        @media (max-width: 767px) {
+            input, textarea, select {
+                font-size: 16px !important;
+            }
+        }
+
+        /* ── Meilleure lisibilité du texte sur petit écran ── */
+        @media (max-width: 767px) {
+            .text-xs { font-size: 13px !important; }
+            .text-sm { font-size: 14px !important; }
         }
     </style>
     <!-- MathJax for LaTeX rendering -->
